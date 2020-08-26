@@ -17,6 +17,8 @@ const FoldersItems = () => {
         </div>
         {isOpen && <ul>
             <li>ПодТема</li>
+            <li>ПодТема</li>
+            <li>ПодТема</li>
         </ul>}
     </div>
 };

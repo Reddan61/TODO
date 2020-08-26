@@ -5,6 +5,7 @@ import FoldersItems from "../foldersItems/foldersItems";
 const Folders = () => {
     return <div className={css.folders}>
         <FoldersItems />
+        <FoldersItems />
     </div>
 };
 
