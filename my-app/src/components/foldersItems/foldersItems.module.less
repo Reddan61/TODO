@@ -1,0 +1,71 @@
+.folder {
+  list-style: none;
+  margin: 5px;
+}
+.folder__arrow, .folder__arrow_active{
+  position: relative;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.folder__arrow:after,
+.folder__arrow:before {
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  content:"";
+  background-color: black;
+}
+.folder__arrow:after {
+  transform: rotate(90deg);
+}
+
+.folder__arrow_active:before {
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  content:"";
+  background-color: black;
+}
+
+.folder__settings {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 0px;
+}
+.folder__settings:hover {
+  & span {
+    position: relative;
+    top:5px;
+  }
+}
+.folder__settings:after,
+.folder__settings:before,
+.folder__settings span {
+  margin: 1px;
+  width:5px;
+  height: 5px;
+  content: "";
+  border-radius: 50%;
+  background-color: black;
+}
+
+
+.folder__name {
+  cursor: pointer;
+  display: flex;
+  height: 30px;
+  align-items: center;
+}
+
+
+.folder li{
+  list-style: none;
+}
