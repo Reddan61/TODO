@@ -1,7 +1,10 @@
 import {applyMiddleware, combineReducers, createStore, Action} from "redux";
 import thunk, {ThunkAction} from "redux-thunk";
+import {FolderReducer} from "./FolderReducer";
 
-let reducers = combineReducers({});
+let reducers = combineReducers({
+    FolderPage:FolderReducer
+});
 
 const store = createStore(reducers,applyMiddleware(thunk));
 

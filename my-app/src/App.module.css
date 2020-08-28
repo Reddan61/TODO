@@ -3,5 +3,12 @@
   height: 100vh;
   background-color: snow;
   display: flex;
+  justify-content: center;
+}
+.container__wrapped {
+  width: 75%;
+  height: 700px;
+  align-self: center;
+  display: flex;
 }
 /*# sourceMappingURL=App.module.css.map */

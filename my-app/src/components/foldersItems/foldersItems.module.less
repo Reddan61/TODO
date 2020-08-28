@@ -2,28 +2,30 @@
   list-style: none;
   margin: 5px;
 }
-.folder__arrow, .folder__arrow_active{
+.folder__plus, .folder__plus_active{
   position: relative;
+  top:-3px;
   width: 30px;
   height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
-.folder__arrow:after,
-.folder__arrow:before {
+.folder__plus:after,
+.folder__plus:before {
   position: absolute;
   width: 20px;
   height: 2px;
   content:"";
   background-color: black;
 }
-.folder__arrow:after {
+.folder__plus:after {
   transform: rotate(90deg);
 }
 
-.folder__arrow_active:before {
+.folder__plus_active:before {
   position: absolute;
   width: 20px;
   height: 2px;
@@ -38,7 +40,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  right: 0px;
+  right: 0;
 }
 .folder__settings:hover {
   & span {
@@ -57,15 +59,30 @@
   background-color: black;
 }
 
-
+.settings__list {
+  background-color:cornflowerblue;
+  position: absolute;
+  top:30px;
+  width: 100px;
+  padding: 0;
+  z-index: 2;
+  border-radius: 15px;
+  border-top-right-radius: unset;
+}
+.settings__list li{
+  display: inline-block;
+  color:white;
+}
 .folder__name {
-  cursor: pointer;
+  position: relative;
   display: flex;
   height: 30px;
   align-items: center;
+
 }
 .folder__name > span {
-  font-size: 24px;
+  z-index: 1;
+  font-size: 18px;
   font-family: sans-serif;
 }
 

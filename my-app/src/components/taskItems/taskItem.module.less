@@ -1,0 +1,77 @@
+.container {
+  width: 70%;
+  min-height: 100px;
+  border-bottom: 1px solid cornflowerblue;
+  border-radius: 15px;
+  margin: 15px 10px 15px;
+  padding-left: 5px;
+  position: relative;
+}
+.container__topic {
+  width: 100%;
+}
+.container__topic  span{
+  display: inline-block;
+  font-size: 20px;
+  width: 75%;
+  height: 25px;
+  font-family: sans-serif;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+.container__text {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  width: 100%;
+  display: flex;
+}
+.text__area{
+  display: inline-block;
+  width: 75%;
+  height: 16px;
+  font-size: 15px;
+  line-height: 20px;
+  font-family: sans-serif;
+  overflow: hidden;
+}
+.text__area_active {
+  height: unset;
+}
+
+.container__more {
+  position: relative;
+  top:8px;
+  right:-20px;
+  width: 40px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.container__more:after,
+.container__more:before {
+  position: absolute;
+  background-color: black;
+  width:15px;
+  height: 2px;
+  content: "";
+  cursor: pointer;
+}
+
+.container__more:after {
+  transform: rotate(45deg);
+}
+.container__more:before {
+  right: 14px;
+  transform: rotate(-45deg);
+}
+.container__more_active:after {
+  transform: rotate(-45deg);
+}
+.container__more_active:before {
+   transform: rotate(45deg);
+ }
+
+.container__text_open {
+  height: unset;
+}
