@@ -2,7 +2,17 @@
   width: 80%;
   height: inherit;
 }
+.tasks__popup {
+  position: relative;
+  top: -30px;
+  align-self: center;
+  width: 400px;
+  height: 300px;
+  font-size: 40px;
+  font-family: sans-serif;
+}
 .tasks__body {
+  justify-content: center;
   display: flex;
   height: inherit;
   flex-direction: column;
@@ -56,7 +66,7 @@
 }
 .footer__text textarea {
   height: 80px;
-  width: 500px;
+  width: 600px;
   font-size: 20px;
   font-family: sans-serif;
   resize: none;

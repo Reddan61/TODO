@@ -1,11 +1,22 @@
 .tasks {
   width: 80%;
   height: inherit;
+  &__popup {
+    position: relative;
+    top:-30px;
+    align-self: center;
+    width: 400px;
+    height: 300px;
+    font-size: 40px;
+    font-family: sans-serif;
+  }
 
   &__body {
+    justify-content: center;
     display: flex;
     height: inherit;
     flex-direction: column;
+
   }
 
   &__items {
@@ -65,7 +76,7 @@
 
     & textarea {
       height: 80px;
-      width: 500px;
+      width: 600px;
       font-size: 20px;
       font-family: sans-serif;
       resize: none;

@@ -56,8 +56,9 @@
 }
 .settings__list {
   background-color: cornflowerblue;
-  position: absolute;
+  position: relative;
   top: 30px;
+  right: -100px;
   width: 100px;
   padding: 0;
   z-index: 2;
