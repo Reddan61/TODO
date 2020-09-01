@@ -3,11 +3,12 @@ import css from "./foldersItems.module.css";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {StateType} from "../redux/store";
-import {changeIsSettingsThunk} from "../redux/FolderReducer";
+import FolderItem from "../folderItem/folderItem";
 
-const FoldersItems:React.FC<mapStateToPropsType & otherPropsType> = (props) => {
+const Folder:React.FC<mapStateToPropsType & otherPropsType> = (props) => {
     const [isOpen, ChangeOpen] = useState(false);
     const [isOpenSettings, ChangeOpenSettings] = useState(false);
+    // @ts-ignore
     return <div className={css.folder} >
         <div className={css.folder__name} >
             <div onClick={() => {
@@ -26,11 +27,10 @@ const FoldersItems:React.FC<mapStateToPropsType & otherPropsType> = (props) => {
                 </ul>}
         </div>
 
-        {isOpen && <ul>
-            <li>ПодТема</li>
-            <li>ПодТема</li>
-            <li>ПодТема</li>
-        </ul>}
+        {isOpen && <div className={css.folder__items}>
+        <FolderItem />
+        <FolderItem />
+        </div>}
     </div>
 };
 
@@ -47,4 +47,4 @@ type otherPropsType = {
 
 export default compose(
     connect(mapStateToProps, {})
-)(FoldersItems);
+)(Folder);

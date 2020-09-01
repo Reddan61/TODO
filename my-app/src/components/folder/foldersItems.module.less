@@ -2,10 +2,9 @@
   list-style: none;
   margin: 5px;
 }
-.folder__plus,
-.folder__plus_active {
+.folder__plus, .folder__plus_active{
   position: relative;
-  top: -3px;
+  top:-3px;
   width: 30px;
   height: 30px;
   display: flex;
@@ -13,24 +12,27 @@
   align-items: center;
   cursor: pointer;
 }
+
 .folder__plus:after,
 .folder__plus:before {
   position: absolute;
   width: 20px;
   height: 2px;
-  content: "";
+  content:"";
   background-color: black;
 }
 .folder__plus:after {
   transform: rotate(90deg);
 }
+
 .folder__plus_active:before {
   position: absolute;
   width: 20px;
   height: 2px;
-  content: "";
+  content:"";
   background-color: black;
 }
+
 .folder__settings {
   position: absolute;
   width: 30px;
@@ -40,61 +42,72 @@
   align-items: center;
   right: 0;
 }
-.folder__settings:hover span {
-  position: relative;
-  top: 5px;
+.folder__settings:hover {
+  & span {
+    position: relative;
+    top:5px;
+  }
 }
 .folder__settings:after,
 .folder__settings:before,
 .folder__settings span {
   margin: 1px;
-  width: 5px;
+  width:5px;
   height: 5px;
   content: "";
   border-radius: 50%;
   background-color: black;
 }
+
 .settings__list {
-  background-color: cornflowerblue;
+  background-color:cornflowerblue;
   position: absolute;
-  top: 30px;
+  top:30px;
   width: 100px;
   padding: 0;
   z-index: 2;
   border-radius: 15px;
   border-top-right-radius: unset;
 }
-.settings__list li {
+.settings__list li{
   display: inline-block;
-  color: white;
+  color:white;
 }
 .folder__name {
   position: relative;
   display: flex;
   height: 30px;
   align-items: center;
+
 }
 .folder__name > span {
   z-index: 1;
   font-size: 18px;
   font-family: sans-serif;
 }
-.folder li {
+.folder__items {
+  padding-left: 15px;
+}
+
+.folder li{
   list-style: none;
 }
+
+
 .folder ul {
   position: relative;
   margin: -5px 5px;
 }
-.folder ul > li {
+
+.folder ul > li{
   margin: 5px;
   font-size: 20px;
   font-family: sans-serif;
   height: 25px;
   max-width: 150px;
 }
-.folder ul > li:hover {
+
+.folder ul > li:hover{
   cursor: pointer;
   font-size: 22px;
 }
-/*# sourceMappingURL=foldersItems.module.css.map */

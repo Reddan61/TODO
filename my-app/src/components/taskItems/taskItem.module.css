@@ -1,8 +1,8 @@
 .container {
-  width: 70%;
+  width: 95%;
   min-height: 100px;
-  border-bottom: 1px solid cornflowerblue;
-  border-radius: 15px;
+  border-bottom: 1px solid;
+  border-image: linear-gradient(to right, deepskyblue, #ffffff) 1;
   margin: 15px 10px 15px;
   padding-left: 5px;
   position: relative;
@@ -27,7 +27,7 @@
 }
 .text__area {
   display: inline-block;
-  width: 75%;
+  width: 90%;
   height: 16px;
   font-size: 15px;
   line-height: 20px;
