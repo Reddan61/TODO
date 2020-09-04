@@ -1,18 +1,17 @@
 import React, {useState} from "react";
-import css from "./foldersItems.module.css";
+import css from "./folder.module.css";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {StateType} from "../redux/store";
 import FolderItem from "../folderItem/folderItem";
-import {addNewSubFolderThunk} from "../redux/FolderReducer";
+import {addNewSubFolderThunk, setFolderIdForDeleteThunk} from "../redux/FolderReducer";
 
 const Folder: React.FC<mapStateToPropsType & otherPropsType & mapDispatchToPropsType> = (props) => {
-
     const [isOpen, ChangeOpen] = useState(false);
     const [isOpenSettings, ChangeOpenSettings] = useState(false);
     const [isAddingNewSubFolder, setAddingNewSubFolder] = useState(false);
     const [inputText, setInputText] = useState("");
-    debugger
+
     return <div className={css.folder}>
         <div className={css.folder__name}>
             <div onClick={() => {
@@ -31,7 +30,23 @@ const Folder: React.FC<mapStateToPropsType & otherPropsType & mapDispatchToProps
                     ChangeOpenSettings(false);
                     setAddingNewSubFolder(true);
                 }}>Добавить</li>
-                <li>Удалить</li>
+
+                {props.changedFolderIdForDelete === props.folder!.id?<li
+                    onClick={() => {
+                        ChangeOpen(true);
+                        ChangeOpenSettings(false);
+                        props.setFolderIdForDeleteThunk(null);
+                    }
+                    }
+                >
+                    Отмена
+                </li>:<li onClick={() => {
+                    ChangeOpen(true);
+                    props.setFolderIdForDeleteThunk(props.folder!.id);
+                    ChangeOpenSettings(false);
+                }
+                }>Удалить</li>}
+
             </ul>}
 
         </div>
@@ -45,15 +60,21 @@ const Folder: React.FC<mapStateToPropsType & otherPropsType & mapDispatchToProps
                 setInputText(e.target.value)
             }
         } value={inputText} onBlur={() => {
-            setAddingNewSubFolder(false);
-            props.addNewSubFolderThunk(props.folder!.id, inputText);
-            setInputText('');
+            if(inputText !== '') {
+                setAddingNewSubFolder(false);
+                props.addNewSubFolderThunk(props.folder!.id, inputText);
+                setInputText('');
+            } else {
+                setAddingNewSubFolder(false);
+            }
         }}/>}
     </div>
 };
 
 let mapStateToProps = (state: StateType) => {
-    return {}
+    return {
+        changedFolderIdForDelete: state.FolderPage.ChangedFolderIdForDelete
+    }
 };
 
 type mapStateToPropsType = ReturnType<typeof mapStateToProps>
@@ -68,8 +89,9 @@ type otherPropsType = {
     } | null
 }
 type mapDispatchToPropsType = {
-    addNewSubFolderThunk: (id: number, name: string) => void
+    addNewSubFolderThunk: (id: number, name: string) => void,
+    setFolderIdForDeleteThunk:(idFolder:number | null) => void
 }
 export default compose(
-    connect(mapStateToProps, {addNewSubFolderThunk})
+    connect(mapStateToProps, {addNewSubFolderThunk,setFolderIdForDeleteThunk})
 )(Folder);

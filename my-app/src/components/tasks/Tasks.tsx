@@ -49,9 +49,11 @@ const Tasks: React.FC<mapStateToPropsType & mapDispatchToPropsType> = (props) =>
                     <textarea onChange={(e) => textAreaChange(e)} value={textAreaValue}/>
                 </div>
                 <button onClick={() => {
-                    props.addNewTaskThunk(textInputValue, textAreaValue);
-                    ChangeValueTextArea('');
-                    ChangeValueInput('');
+                    if(textAreaValue !== '' && textInputValue !== ""){
+                        props.addNewTaskThunk(textInputValue, textAreaValue);
+                        ChangeValueTextArea('');
+                        ChangeValueInput('');
+                    }
                 }
                 }>
                     Сохранить
@@ -67,7 +69,7 @@ let mapStateToProps = (state: StateType) => {
         taskItems: state.FolderPage.tasks && state.FolderPage.tasks!.map((el,index) => {
             if(el.idFolder === state.FolderPage.ChangedFolderId) {
                 if(el.idSubFolder === state.FolderPage.ChangedSubFolderId) {
-                    return <TaskItem task={el} />
+                    return <TaskItem key = {el.text + el.title + el.idSubFolder + el.idFolder} task={el} />
                 }
             }
         })

@@ -8,13 +8,15 @@ const SETTASKS = "SET_TASKS";
 const ADDNEWSUBFOLDER = "ADD_NEW_SUBFOLDER";
 const ADDNEWTASK = "ADD_NEW_TASK";
 const ChangeFolderId = "CHANGE_FOLDER_ID";
-
+const deleteSubFolder = "DELETE_SUBFOLDER";
+const ChangeFolderIdForDelete = "CHANGE_FOLDER_ID_FOR_DELETE";
 
 let initialState = {
     ChangedFolderId: null as null | number,
     ChangedSubFolderId: null as null | number,
     folders: null as FoldersType,
-    tasks: null as tasksType | null
+    tasks: null as tasksType | null,
+    ChangedFolderIdForDelete: null as null | number
 };
 
 type initialStateType = typeof initialState;
@@ -90,6 +92,31 @@ export const FolderReducer = (state = initialState, action: actionsType): initia
                 ChangedFolderId: action.payload.idFolder,
                 ChangedSubFolderId: action.payload.idSubFolder
             };
+            case "DELETE_SUBFOLDER":
+                return {
+                    ...state,
+                    folders: state.folders!.map(el => {
+                        if(el.id === state.ChangedFolderIdForDelete) {
+                            let newSubFolders = Object.assign({},el);
+                            newSubFolders.Subfolders = el.Subfolders!.filter(el => {
+                                return el.id !== action.payload.idSubFolder
+                            });
+                            if (newSubFolders.Subfolders.length === 0) {
+                                newSubFolders.Subfolders = null
+                            }
+                            return newSubFolders;
+                        }
+                        return el
+                    }) as FoldersType,
+                    tasks: state.tasks !== null ? state.tasks!.filter(el => {
+                        return el.idSubFolder !== action.payload.idSubFolder
+                    }):state.tasks
+                };
+                case "CHANGE_FOLDER_ID_FOR_DELETE":
+                    return {
+                        ...state,
+                      ChangedFolderIdForDelete: action.payload.idFolder
+                    };
         default:
             return state;
     }
@@ -108,6 +135,8 @@ const actions = {
     } as const),
     addNewSubFolderAC: (id: number, name: string) => ({type: ADDNEWSUBFOLDER, payload: {id, name}} as const),
     addNewTaskAC: (title: string, text: string) => ({type: ADDNEWTASK, payload: {text, title}} as const),
+    deleteSubFolderAC: (idSubFolder:number) => ({type: deleteSubFolder, payload: {idSubFolder}} as const),
+    changeFolderIdForDeleteAC: (idFolder:number | null) => ({type: ChangeFolderIdForDelete, payload: {idFolder}} as const)
 };
 
 
@@ -133,6 +162,19 @@ export const addNewSubFolderThunk = (id: number, name: string): ThunkActionType<
 export const addNewTaskThunk = (title: string, text: string): ThunkActionType<actionsType> => {
     return async (dispatch) => {
         dispatch(actions.addNewTaskAC(title, text));
+        dispatch(actions.setTasksAC());
+    }
+};
+
+export const setFolderIdForDeleteThunk = (idFolder:number | null): ThunkActionType<actionsType> => {
+    return async (dispatch) => {
+        dispatch(actions.changeFolderIdForDeleteAC(idFolder));
+    }
+};
+export const deleteSubFolderThunk = (idSubFolder:number): ThunkActionType<actionsType> => {
+    return async (dispatch) => {
+        dispatch(actions.deleteSubFolderAC(idSubFolder));
+        dispatch(actions.setFoldersAC());
         dispatch(actions.setTasksAC());
     }
 };

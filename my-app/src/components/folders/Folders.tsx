@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import css from "./Folders.module.css"
 import Folder from "../folder/folder";
 import { compose } from "redux";
@@ -17,9 +17,14 @@ const Folders:React.FC<mapStateToPropsType & mapDispatchToPropsType> = (props) =
                 autoFocus
                 onChange={(e) => ChangeTextInput(e.target.value)}
                 onBlur={() => {
-                    ChangeAdd(false);
-                    props.addNewFolderThunk(inputText);
-                    ChangeTextInput('');
+                    if(inputText !== "") {
+                        ChangeAdd(false);
+                        props.addNewFolderThunk(inputText);
+                        ChangeTextInput('');
+                    }
+                    else {
+                        ChangeAdd(false);
+                    }
                 }}
             />}
         </div>
@@ -40,6 +45,6 @@ type mapDispatchToPropsType = {
     addNewFolderThunk: (name:string) => void
 }
 
-export default compose(
+export default React.memo(compose(
     connect(mapStateToProps, {addNewFolderThunk})
-)(Folders);
+)(Folders));

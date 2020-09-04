@@ -3,7 +3,6 @@ import css from "./taskItem.module.css"
 
 const TaskItem:React.FC<otherPropsType> = (props) => {
     let [isOpen, ChangeOpen] = useState(false);
-    debugger
     return <div className={css.container}>
         <div className={css.container__topic}>
             <span>{props.task.title}</span>
