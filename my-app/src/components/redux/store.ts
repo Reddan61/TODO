@@ -1,9 +1,9 @@
 import {applyMiddleware, combineReducers, createStore, Action} from "redux";
 import thunk, {ThunkAction} from "redux-thunk";
-import {FolderReducer} from "./FolderReducer";
+import {Reducer} from "./Reducer";
 
 let reducers = combineReducers({
-    FolderPage:FolderReducer
+    FolderPage:Reducer
 });
 
 

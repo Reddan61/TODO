@@ -3,17 +3,17 @@ import css from "./FolderItem.module.css"
 import {compose} from "redux";
 import { connect } from "react-redux";
 import {StateType} from "../redux/store";
-import {deleteSubFolderThunk, setChangedFolderIdThunk} from "../redux/FolderReducer";
+import {deleteSubFolderThunk, setChangedFolderIdThunk} from "../redux/Reducer";
 
 
 const FolderItem:React.FC<otherPropsType & mapStateToDispatchType & mapStateToPropsType> = (props) => {
 
     return <div className={css.folderItem} onClick={() => {
-        if(props.ChangedFolderIdForDelete === props.id) {
+        if(props.ChangedFolderIdForDeleteSubFolders === props.id) {
             props.deleteSubFolderThunk(props.SubFolder.id)
         }
     }}>
-        <div className={`${css.folderItem__body} ${props.ChangedFolderIdForDelete === props.id? css.folderItem__body_active: ""}`}>
+        <div className={`${css.folderItem__body} ${props.ChangedFolderIdForDeleteSubFolders === props.id? css.folderItem__body_active: ""}`}>
             <div
                 style={{backgroundColor: `rgb(${Math.ceil(Math.random() * (255 - 0) + 0)},${Math.random() * (255 - 0) + 0},${Math.random() * (255 - 0) + 0})`}}
                 className={css.folderItem__circle}>
@@ -38,7 +38,7 @@ type otherPropsType = {
 
 let mapStateToProps = (state:StateType) => {
     return {
-        ChangedFolderIdForDelete: state.FolderPage.ChangedFolderIdForDelete
+        ChangedFolderIdForDeleteSubFolders: state.FolderPage.ChangedFolderIdForDeleteSubFolders
     }
 };
 

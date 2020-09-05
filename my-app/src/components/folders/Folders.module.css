@@ -11,6 +11,8 @@
   flex-direction: column;
 }
 .folders__items {
+  overflow-y: auto;
+  overflow-x: hidden;
   flex: 0 0 80%;
 }
 .folders__menu {
@@ -18,8 +20,10 @@
   flex: 1 0 auto;
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
-.folders__menu button {
+.folders__menu .menu__add {
   align-self: center;
   height: 50px;
   font-size: 20px;
@@ -32,8 +36,32 @@
   transition: all 0.5s ease 0s;
   outline: none;
 }
+.folders__menu .menu__delete {
+  align-self: center;
+  height: 30px;
+  font-size: 20px;
+  font-family: sans-serif;
+  background-color: green;
+  color: whitesmoke;
+  border: 0;
+  border-radius: 7px;
+  box-shadow: 0 3px black;
+  transition: all 0.5s ease 0s;
+  outline: none;
+}
+.folders__menu button {
+  margin: 5px;
+}
 .folders__menu button:hover {
   background-color: limegreen;
   box-shadow: 0 1px black;
+}
+.folders__menu > span {
+  white-space: nowrap;
+  width: 120px;
+  font-size: 13px;
+  color: black;
+  font-family: sans-serif;
+  margin-left: 20px;
 }
 /*# sourceMappingURL=Folders.module.css.map */

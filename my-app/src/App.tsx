@@ -4,7 +4,7 @@ import Folders from "./components/folders/Folders";
 import Tasks from "./components/tasks/Tasks";
 import {compose} from 'redux';
 import {connect} from "react-redux";
-import {addNewFolderThunk, getFoldersThunk, getTasksThunk} from "./components/redux/FolderReducer";
+import {addNewFolderThunk, getFoldersThunk, getTasksThunk} from "./components/redux/Reducer";
 import {StateType} from "./components/redux/store";
 
 function App(props:mapStateToPropsType & mapDispatchToPropsType) {

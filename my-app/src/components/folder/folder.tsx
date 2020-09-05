@@ -4,7 +4,11 @@ import {compose} from "redux";
 import {connect} from "react-redux";
 import {StateType} from "../redux/store";
 import FolderItem from "../folderItem/folderItem";
-import {addNewSubFolderThunk, setFolderIdForDeleteThunk} from "../redux/FolderReducer";
+import {
+    addNewSubFolderThunk,
+    deleteFolderThunk,
+    setFolderIdForDeleteSubFoldersThunk
+} from "../redux/Reducer";
 
 const Folder: React.FC<mapStateToPropsType & otherPropsType & mapDispatchToPropsType> = (props) => {
     const [isOpen, ChangeOpen] = useState(false);
@@ -12,55 +16,72 @@ const Folder: React.FC<mapStateToPropsType & otherPropsType & mapDispatchToProps
     const [isAddingNewSubFolder, setAddingNewSubFolder] = useState(false);
     const [inputText, setInputText] = useState("");
 
-    return <div className={css.folder}>
-        <div className={css.folder__name}>
+    return <div onLoad={() => {
+        if (props.folder!.Subfolders === null) {
+            props.setFolderIdForDeleteSubFoldersThunk(null);
+        }
+    }} className={`${css.folder} ${props.isDeletingFolders ? css.folder_delete : ''}`} onClick={() => {
+        if (props.isDeletingFolders) {
+            props.deleteFolderThunk(props.folder!.id)
+        }
+    }}>
+        <div className={`${css.folder__name} ${props.isDeletingFolders ? css.folder__name_delete : ''}`}>
             <div onClick={() => {
                 ChangeOpen(!isOpen);
             }} className={isOpen ? css.folder__plus_active : css.folder__plus}>
             </div>
-            <span>{props.folder!.name}</span>
+            <span>{props.folder!.name}
+            </span>
             <div className={css.folder__settings} onClick={() => {
+                ChangeOpen(true);
                 ChangeOpenSettings(!isOpenSettings)
             }}>
-                <span></span>
+                <span>
+                </span>
             </div>
-            {isOpenSettings && <ul className={css.settings__list}>
+        </div>
+        {isOpenSettings && <div className={css.settings__list}>
+            <ul>
                 <li onClick={() => {
                     ChangeOpen(true);
                     ChangeOpenSettings(false);
                     setAddingNewSubFolder(true);
-                }}>Добавить</li>
+                }}>Добавить
+                </li>
 
-                {props.changedFolderIdForDelete === props.folder!.id?<li
-                    onClick={() => {
+                {props.ChangedFolderIdForDeleteSubFolders === props.folder!.id && props.folder!.Subfolders !== null ?
+                    <li
+                        onClick={() => {
+                            ChangeOpen(true);
+                            ChangeOpenSettings(false);
+                            props.setFolderIdForDeleteSubFoldersThunk(null);
+                        }
+                        }
+                    >
+                        Отмена
+                    </li> : <li onClick={() => {
                         ChangeOpen(true);
+                        props.setFolderIdForDeleteSubFoldersThunk(props.folder!.id);
                         ChangeOpenSettings(false);
-                        props.setFolderIdForDeleteThunk(null);
                     }
-                    }
-                >
-                    Отмена
-                </li>:<li onClick={() => {
-                    ChangeOpen(true);
-                    props.setFolderIdForDeleteThunk(props.folder!.id);
-                    ChangeOpenSettings(false);
-                }
-                }>Удалить</li>}
+                    }>Удалить</li>}
 
-            </ul>}
+            </ul>
+        </div>}
 
-        </div>
         {isOpen && <div className={css.folder__items}>
+
             {props.folder!.Subfolders && props.folder!.Subfolders.map((el, index) => <FolderItem SubFolder={el}
                                                                                                  id={props.folder!.id}
                                                                                                  key={el.id + index}/>)}
         </div>}
+
         {isAddingNewSubFolder && <input autoFocus onChange={
             (e) => {
                 setInputText(e.target.value)
             }
         } value={inputText} onBlur={() => {
-            if(inputText !== '') {
+            if (inputText !== '') {
                 setAddingNewSubFolder(false);
                 props.addNewSubFolderThunk(props.folder!.id, inputText);
                 setInputText('');
@@ -73,7 +94,8 @@ const Folder: React.FC<mapStateToPropsType & otherPropsType & mapDispatchToProps
 
 let mapStateToProps = (state: StateType) => {
     return {
-        changedFolderIdForDelete: state.FolderPage.ChangedFolderIdForDelete
+        ChangedFolderIdForDeleteSubFolders: state.FolderPage.ChangedFolderIdForDeleteSubFolders,
+        isDeletingFolders: state.FolderPage.isDeletingFolders
     }
 };
 
@@ -90,8 +112,9 @@ type otherPropsType = {
 }
 type mapDispatchToPropsType = {
     addNewSubFolderThunk: (id: number, name: string) => void,
-    setFolderIdForDeleteThunk:(idFolder:number | null) => void
+    setFolderIdForDeleteSubFoldersThunk: (idFolder: number | null) => void
+    deleteFolderThunk: (idFolder: number | null) => void
 }
-export default compose(
-    connect(mapStateToProps, {addNewSubFolderThunk,setFolderIdForDeleteThunk})
-)(Folder);
+export default React.memo(compose(
+    connect(mapStateToProps, {addNewSubFolderThunk, setFolderIdForDeleteSubFoldersThunk, deleteFolderThunk})
+)(Folder));

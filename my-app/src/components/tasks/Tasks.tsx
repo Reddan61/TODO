@@ -4,7 +4,7 @@ import TaskItem from "../taskItems/taskItem";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {StateType} from "../redux/store";
-import {addNewTaskThunk} from "../redux/FolderReducer";
+import {addNewTaskThunk} from "../redux/Reducer";
 
 
 const Tasks: React.FC<mapStateToPropsType & mapDispatchToPropsType> = (props) => {
@@ -19,7 +19,7 @@ const Tasks: React.FC<mapStateToPropsType & mapDispatchToPropsType> = (props) =>
             ChangeValueTextArea(e.target.value);
         }
     };
-    if (props.changedFolderId === null) {
+    if (props.changedSubFolderId === null || props.changedFolderId === null) {
         return <div className={css.tasks}>
             <div className={css.tasks__body}>
                 <div className={css.tasks__popup}>
@@ -66,6 +66,7 @@ const Tasks: React.FC<mapStateToPropsType & mapDispatchToPropsType> = (props) =>
 let mapStateToProps = (state: StateType) => {
     return {
         changedFolderId: state.FolderPage.ChangedFolderId,
+        changedSubFolderId: state.FolderPage.ChangedSubFolderId,
         taskItems: state.FolderPage.tasks && state.FolderPage.tasks!.map((el,index) => {
             if(el.idFolder === state.FolderPage.ChangedFolderId) {
                 if(el.idSubFolder === state.FolderPage.ChangedSubFolderId) {

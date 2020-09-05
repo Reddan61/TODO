@@ -1,6 +1,10 @@
 .folder {
   list-style: none;
   margin: 5px;
+  position: relative;
+}
+.folder_delete {
+  cursor: pointer;
 }
 .folder__plus,
 .folder__plus_active {
@@ -55,25 +59,54 @@
   background-color: black;
 }
 .settings__list {
-  background-color: cornflowerblue;
-  position: relative;
-  top: 30px;
-  right: -100px;
-  width: 100px;
   padding: 0;
+  position: absolute;
+  width: 130px;
+  right: 0;
+  background-color: cornflowerblue;
   z-index: 2;
   border-radius: 15px;
   border-top-right-radius: unset;
 }
-.settings__list li {
+.settings__list > ul {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+}
+.settings__list > ul > li {
+  margin: 5px 0 5px 10px;
+  font-size: 20px;
+  font-family: sans-serif;
+  height: 25px;
+  max-width: 150px;
   display: inline-block;
   color: white;
+}
+.settings__list > ul > li:hover {
+  cursor: pointer;
+  font-size: 22px;
 }
 .folder__name {
   position: relative;
   display: flex;
   height: 30px;
   align-items: center;
+}
+.folder__name_delete {
+  animation-name: iridescent_color;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+  animation-direction: alternate;
+}
+@keyframes iridescent_color {
+  0% {
+    color: black;
+  }
+  100% {
+    color: red;
+  }
 }
 .folder__name > span {
   z-index: 1;
@@ -86,18 +119,18 @@
 .folder li {
   list-style: none;
 }
-.folder ul {
+.folder > ul {
   position: relative;
   margin: -5px 5px;
 }
-.folder ul > li {
+.folder > ul > li {
   margin: 5px;
   font-size: 20px;
   font-family: sans-serif;
   height: 25px;
   max-width: 150px;
 }
-.folder ul > li:hover {
+.folder > ul > li:hover {
   cursor: pointer;
   font-size: 22px;
 }
