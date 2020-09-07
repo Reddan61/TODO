@@ -13,6 +13,7 @@ const deleteSubFolder = "DELETE_SUBFOLDER";
 const ChangeFolderIdForDeleteSubFolders = "CHANGE_FOLDER_ID_FOR_DELETE_SUBFOLDERS";
 const deleteFolder = "DELETE_FOLDER";
 const setDeletingFolders = "SET_DELETING_FOLDERS";
+const deleteTask = "DELETE_TASK";
 
 let initialState = {
     isDeletingFolders: false,
@@ -78,12 +79,14 @@ export const Reducer = (state = initialState, action: actionsType): initialState
         case "ADD_NEW_TASK":
             return {
                 ...state,
-                tasks: state.tasks ? [...state.tasks, {
+                tasks: state.tasks !== null ? [...state.tasks, {
+                    id: state.tasks.length !== 0?state.tasks[state.tasks!.length - 1].id + 1:0,
                     title: action.payload.title,
                     text: action.payload.text,
                     idFolder: state.ChangedFolderId!,
                     idSubFolder: state.ChangedSubFolderId!
                 }] : [{
+                    id:0,
                     title: action.payload.title,
                     text: action.payload.text,
                     idFolder: state.ChangedFolderId!,
@@ -148,6 +151,13 @@ export const Reducer = (state = initialState, action: actionsType): initialState
                 ...state,
                 isDeletingFolders: !state.isDeletingFolders
             };
+            case "DELETE_TASK":
+                return {
+                ...state,
+                    tasks: state.tasks!.filter(el => {
+                        return el.id !== action.payload.id
+                    })
+            };
         default:
             return state;
     }
@@ -176,11 +186,18 @@ const actions = {
         payload: {idFolder}
     } as const),
     setDeletingFoldersAC: () => ({type: setDeletingFolders} as const),
+    deleteTaskAC: (id:number) => ({type: deleteTask, payload: {id}} as const)
 };
 
 export const setDeletingFoldersThunk = (): ThunkActionType<actionsType> => {
     return async (dispatch) => {
         dispatch(actions.setDeletingFoldersAC());
+    }
+};
+export const deleteTaskThunk = (id:number): ThunkActionType<actionsType> => {
+    return async (dispatch) => {
+        dispatch(actions.deleteTaskAC(id));
+        dispatch(actions.setTasksAC())
     }
 };
 
@@ -266,6 +283,7 @@ export type FoldersType = Array<{
 
 
 type tasksType = Array<{
+    id:number,
     idSubFolder: number,
     idFolder: number,
     title: string,
