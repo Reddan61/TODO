@@ -8,9 +8,9 @@ let reducers = combineReducers({
 
 
 // @ts-ignore
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
-
+/*const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));*/
+const store = createStore(reducers,applyMiddleware(thunk));
 // @ts-ignore
 window.store = store;
 
